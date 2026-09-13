@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文阅读助手</title><link rel="stylesheet" href="panel.css"></head>
+<body>
+<header><div class="brand">P<span>论文阅读助手<small>PAPER SIDEBAR</small></span></div><button id="settingsToggle">设置</button></header>
+<section id="settings" hidden>
+  <h2>模型服务</h2><p class="muted">自行填写 API Key；只保存在本机浏览器，不同步。发送时，正文和最近 4 轮问答会传给所选服务。</p>
+  <label>服务商<select id="provider"></select></label>
+  <label>Base URL<input id="base" type="url" placeholder="https://api.example.com/v1"></label>
+  <label>模型 ID<input id="model" placeholder="填写该平台控制台中可用的模型 ID"></label>
+  <label>API Key<input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="在这里填写，不需要发给任何人"></label>
+  <div class="row"><button id="save" class="primary">保存并授权连接</button><button id="forget">删除此服务密钥</button></div>
+  <p class="muted">Base URL 不含 /chat/completions 或 /messages。Qwen、Kimi 的预设为中国内地端点；其他地区请修改地址。密钥以本地明文存储，勿在共享电脑中保存。</p>
+</section>
+<main>
+  <div class="row"><label class="grow">本次使用<select id="activeProvider"></select></label><button id="read">读取网页</button></div>
+  <section class="source"><div class="eyebrow">阅读材料</div><strong id="pageTitle">打开论文网页，点击“读取网页”</strong><p id="pageMeta">首次使用，请先在设置中配置模型。</p>
+  <details><summary>查看正文 / 粘贴文字</summary><p class="muted">可修改后点击“使用这段文字”；自动读取最多 100,000 字符。PDF 请复制所需文字到这里。</p><textarea id="sourceText" rows="8" placeholder="读取到的正文会显示在这里，也可以粘贴论文段落。"></textarea><div class="row"><button id="useText">使用这段文字</button><span id="mode">网页模式</span></div></details></section>
+  <div class="quick"><button title="快速把握研究问题、方法、结果与意义" data-prompt="请帮助我把握这篇论文的核心内容，覆盖研究背景与问题、研究目标、核心思路与方法、主要结果及其意义。
+根据论文实际内容组织要点，完整总结重要信息，不限制要点数量。说明各部分之间的逻辑联系，避免只给出结论清单。重要结果尽量保留具有解释价值的数据、比较对象和适用条件；次要细节可以省略。">核心内容</button><button title="读懂整体思路、关键步骤及设计原因" data-prompt="请帮助我读懂这篇论文的方法。围绕它如何解决研究问题，解释整体思路、关键步骤、重要机制，以及这样设计的原因。
+根据论文类型，说明必要的输入与输出、模型或实验设计、关键假设，以及各步骤之间的关系。对理解方法不可缺少的术语和公式作适当解释，必要时举例，不必罗列所有实现细节。要点数量和篇幅以把方法讲清楚为准。">方法讲解</button><button title="理解创新、支撑证据及适用边界" data-prompt="请分析这篇论文的重要创新、支持这些创新的证据，以及主要局限和适用边界。
+说明它相较文中讨论的已有工作具体改进了什么、为什么有意义，以及实验或理论分析在多大程度上支持其结论。覆盖重要的新意和限制，不限制要点数量，不强行凑出优点或缺点。
+区分作者明确指出的局限与你根据正文作出的推断。若缺少必要的比较或证据，应说明无法确认，避免夸大创新性。">创新与局限</button></div>
+  <div class="row"><span class="muted">重点完整、解释清楚，篇幅按需展开</span><button id="clear" class="quiet">清空对话</button></div>
+  <div id="chat" aria-live="polite"><div class="empty">读懂一篇论文，从一个问题开始。<br><small>例如：这篇论文的创新点是什么？</small></div></div>
+</main>
+<footer><div id="status" role="status">就绪</div><button id="grantPage" hidden>授权读取此网站</button><form id="form"><textarea id="question" rows="3" maxlength="12000" placeholder="询问左侧网页…（Ctrl / ⌘ + Enter 发送）" aria-label="问题"></textarea><div class="row"><small>只解读读取到的文字，不含图片分析</small><button type="button" id="stop" hidden>停止</button><button id="send" class="primary">发送 ↑</button></div></form></footer>
+<script type="module" src="panel.js"></script></body></html>

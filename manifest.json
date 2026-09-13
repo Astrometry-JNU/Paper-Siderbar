@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Paper Sidebar · 论文阅读助手",
+  "version": "1.0.4",
+  "description": "读取当前期刊网页，在侧边栏总结、讲解与提问。支持自填多家模型 API Key。",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "action": {
+    "default_title": "打开论文阅读助手（也授予当前网页读取权限）"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  }
+}
